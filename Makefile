@@ -6,8 +6,9 @@
 # CSV without anything failing.
 
 PY := uv run
+CORPUS ?= ../covered/data/raw/cnn-8.csv.gz
 
-.PHONY: setup lint format typecheck test check pilot report clean
+.PHONY: setup lint format typecheck test check samples pilot report clean
 
 setup:  ## create venv and install the package with dev extras
 	uv venv --python 3.11
@@ -28,7 +29,13 @@ test:  ## pytest; schema tests run without the anthropic SDK
 
 check: lint test  ## everything CI runs
 
-pilot:  ## re-run the 100-article pilot end to end (needs ANTHROPIC_API_KEY)
+# The sample is regenerated, never committed: it is verbatim text from a
+# Dataverse corpus that is access-restricted for copyright reasons, and this
+# repo is public. Seed 42 reproduces the exact 100 articles behind data/.
+samples:  ## re-draw the 100-article sample from the corpus (needs ../covered/data/raw)
+	$(PY) python scripts/sample_from_csv.py --input $(CORPUS) --n 100 --seed 42
+
+pilot: samples  ## re-run the 100-article pilot end to end (needs ANTHROPIC_API_KEY)
 	$(PY) python scripts/run_pipeline.py --stage all --n-articles 100 --seed 42
 
 report:  ## regenerate report.md / report.html / claims.csv from the last run
