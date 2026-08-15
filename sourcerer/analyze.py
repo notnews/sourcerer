@@ -4,6 +4,7 @@ from collections import Counter
 
 from anthropic import Anthropic
 
+from sourcerer.config import MODEL
 from sourcerer.evidence import classify_all_evidence
 from sourcerer.extract import extract_claims, get_client
 from sourcerer.schema import AnalyzedArticle
@@ -16,7 +17,7 @@ def analyze_article(
     date: str,
     text: str,
     client: Anthropic | None = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> AnalyzedArticle:
     """Analyze a single article for claims and evidence.
 

@@ -5,6 +5,7 @@ import os
 
 from anthropic import Anthropic
 
+from sourcerer.config import EXTRACTION_MAX_CHARS, MAX_TOKENS, MODEL, THINKING
 from sourcerer.prompts import CLAIM_EXTRACTION_SYSTEM, CLAIM_EXTRACTION_USER
 from sourcerer.schema import Claim, ClaimCategory, ClaimerRole, ClaimType
 
@@ -20,8 +21,8 @@ def get_client() -> Anthropic:
 def extract_claims(
     text: str,
     client: Anthropic | None = None,
-    model: str = "claude-sonnet-4-20250514",
-    max_tokens: int = 4096,
+    model: str = MODEL,
+    max_tokens: int = MAX_TOKENS,
 ) -> list[Claim]:
     """Extract claims from article text using Claude.
 
@@ -37,12 +38,13 @@ def extract_claims(
     if client is None:
         client = get_client()
 
-    if len(text) > 50000:
-        text = text[:50000]
+    if len(text) > EXTRACTION_MAX_CHARS:
+        text = text[:EXTRACTION_MAX_CHARS]
 
     response = client.messages.create(
         model=model,
         max_tokens=max_tokens,
+        thinking=THINKING,
         system=CLAIM_EXTRACTION_SYSTEM,
         messages=[{"role": "user", "content": CLAIM_EXTRACTION_USER.format(text=text)}],
     )

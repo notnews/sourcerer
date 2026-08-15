@@ -26,6 +26,7 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from sourcerer.analyze import analyze_article, compute_metrics, print_metrics
+from sourcerer.config import MODEL
 from sourcerer.data import iter_transcripts, load_csv
 from sourcerer.extract import get_client
 
@@ -76,7 +77,7 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="claude-sonnet-4-20250514",
+        default=MODEL,
         help="Claude model to use",
     )
     args = parser.parse_args()

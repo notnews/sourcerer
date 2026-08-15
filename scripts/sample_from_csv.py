@@ -54,15 +54,19 @@ def main():
 
     samples = []
     for _, row in sampled.iterrows():
-        date_str = f"{int(row['year'])}-{int(row['month']):02d}-{int(row['date']):02d}" if pd.notna(row.get("year")) else ""
-        samples.append({
-            "url": row["url"],
-            "network": row.get("channel.name", "CNN"),
-            "program": row.get("program.name", "Unknown"),
-            "date": date_str,
-            "text": row["text"],
-            "word_count": row.get("wordcount", len(str(row["text"]).split())),
-        })
+        date_str = (
+            f"{int(row['year'])}-{int(row['month']):02d}-{int(row['date']):02d}" if pd.notna(row.get("year")) else ""
+        )
+        samples.append(
+            {
+                "url": row["url"],
+                "network": row.get("channel.name", "CNN"),
+                "program": row.get("program.name", "Unknown"),
+                "date": date_str,
+                "text": row["text"],
+                "word_count": row.get("wordcount", len(str(row["text"]).split())),
+            }
+        )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with open(args.output, "w") as f:

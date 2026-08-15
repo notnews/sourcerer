@@ -4,6 +4,7 @@ import json
 
 from anthropic import Anthropic
 
+from sourcerer.config import MODEL, THINKING
 from sourcerer.extract import get_client
 from sourcerer.prompts import EVIDENCE_CLASSIFICATION_SYSTEM, EVIDENCE_CLASSIFICATION_USER
 from sourcerer.schema import Claim, Evidence, EvidenceSubtype, EvidenceType, SourceType
@@ -45,7 +46,7 @@ def classify_evidence(
     claim: Claim,
     full_text: str,
     client: Anthropic | None = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> Evidence:
     """Classify evidence supporting a claim.
 
@@ -66,6 +67,7 @@ def classify_evidence(
     response = client.messages.create(
         model=model,
         max_tokens=1024,
+        thinking=THINKING,
         system=EVIDENCE_CLASSIFICATION_SYSTEM,
         messages=[
             {
@@ -135,7 +137,7 @@ def classify_all_evidence(
     claims: list[Claim],
     full_text: str,
     client: Anthropic | None = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> list[Claim]:
     """Classify evidence for all claims.
 

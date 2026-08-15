@@ -19,3 +19,11 @@ docs/_build/
 # already stored once in ../covered/data/raw. Never duplicate them here.
 data/*.csv.gz
 data/*.7z
+
+# Transcript text sampled OUT of that corpus is the same restricted material in
+# a different container -- the archive patterns above missed it, and 3.3MB of
+# verbatim CNN transcripts sat staged for a public repo. Regenerate with
+# `make samples`; never commit. Derived artefacts (claims.csv, batch_results,
+# reports) hold only extracted sentences and short quotes and DO belong in git.
+data/samples*.json
+data/articles_sampled.json

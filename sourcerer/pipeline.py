@@ -15,6 +15,13 @@ from typing import Any
 
 from anthropic import Anthropic
 
+from sourcerer.config import (
+    EVIDENCE_MAX_CHARS,
+    EXTRACTION_MAX_CHARS,
+    MAX_TOKENS,
+    MODEL,
+    THINKING,
+)
 from sourcerer.evidence import SUBTYPE_TO_TYPE
 from sourcerer.prompts import (
     BATCHED_EVIDENCE_CLASSIFICATION_USER,
@@ -135,7 +142,7 @@ def extract_claims_batch(
     input_path: Path,
     output_path: Path,
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
     poll_interval: int = 10,
     max_wait: int = 3600,
 ) -> dict:
@@ -161,15 +168,16 @@ def extract_claims_batch(
     requests = []
     for article in articles:
         text = article["text"]
-        if len(text) > 50000:
-            text = text[:50000]
+        if len(text) > EXTRACTION_MAX_CHARS:
+            text = text[:EXTRACTION_MAX_CHARS]
 
         requests.append(
             {
                 "custom_id": f"claims_{article['article_id']}",
                 "params": {
                     "model": model,
-                    "max_tokens": 4096,
+                    "max_tokens": MAX_TOKENS,
+                    "thinking": THINKING,
                     "system": CLAIM_EXTRACTION_SYSTEM,
                     "messages": [{"role": "user", "content": CLAIM_EXTRACTION_USER.format(text=text)}],
                     "tools": [CLAIM_EXTRACTION_TOOL],
@@ -324,7 +332,7 @@ def classify_evidence_batch(
     input_path: Path,
     output_path: Path,
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
     poll_interval: int = 10,
     max_wait: int = 3600,
     max_claims_per_batch: int = 15,
@@ -389,13 +397,14 @@ def classify_evidence_batch(
                     "custom_id": request_id,
                     "params": {
                         "model": model,
-                        "max_tokens": 4096,
+                        "max_tokens": MAX_TOKENS,
+                        "thinking": THINKING,
                         "system": EVIDENCE_CLASSIFICATION_SYSTEM,
                         "messages": [
                             {
                                 "role": "user",
                                 "content": BATCHED_EVIDENCE_CLASSIFICATION_USER.format(
-                                    article_text=article["text"][:30000],
+                                    article_text=article["text"][:EVIDENCE_MAX_CHARS],
                                     claims_list=claims_list_text,
                                 ),
                             }
@@ -652,7 +661,7 @@ def run_pipeline(
     seed: int = 42,
     category: str = "substantive_news",
     max_claims_per_article: int = 10,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
     poll_interval: int = 10,
     stages: list[str] | None = None,
     client: Anthropic | None = None,

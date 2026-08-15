@@ -14,6 +14,7 @@ from typing import Any, Optional
 
 from anthropic import Anthropic
 
+from sourcerer.config import EXTRACTION_MAX_CHARS, MAX_TOKENS, MODEL, THINKING
 from sourcerer.evidence import SUBTYPE_TO_TYPE, get_context_window
 from sourcerer.prompts import (
     CLAIM_EXTRACTION_SYSTEM,
@@ -38,7 +39,7 @@ from sourcerer.tools import CLAIM_EXTRACTION_TOOL, EVIDENCE_CLASSIFICATION_TOOL
 def create_claim_extraction_batch(
     articles: list[dict],
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> str:
     """Create a batch for claim extraction.
 
@@ -53,15 +54,16 @@ def create_claim_extraction_batch(
     requests = []
     for article in articles:
         text = article["text"]
-        if len(text) > 50000:
-            text = text[:50000]
+        if len(text) > EXTRACTION_MAX_CHARS:
+            text = text[:EXTRACTION_MAX_CHARS]
 
         requests.append(
             {
                 "custom_id": f"claims_{article['id']}",
                 "params": {
                     "model": model,
-                    "max_tokens": 4096,
+                    "max_tokens": MAX_TOKENS,
+                    "thinking": THINKING,
                     "system": CLAIM_EXTRACTION_SYSTEM,
                     "messages": [{"role": "user", "content": CLAIM_EXTRACTION_USER.format(text=text)}],
                 },
@@ -75,7 +77,7 @@ def create_claim_extraction_batch(
 def create_evidence_batch(
     claims_with_context: list[dict],
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> str:
     """Create a batch for evidence classification.
 
@@ -95,6 +97,7 @@ def create_evidence_batch(
                 "params": {
                     "model": model,
                     "max_tokens": 1024,
+                    "thinking": THINKING,
                     "system": EVIDENCE_CLASSIFICATION_SYSTEM,
                     "messages": [
                         {
@@ -196,7 +199,7 @@ def parse_evidence_response(content: str) -> dict:
 def analyze_batch(
     articles: list[dict],
     client: Optional[Anthropic] = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
     poll_interval: int = 10,
 ) -> list[AnalyzedArticle]:
     """Analyze articles using batch API.
@@ -334,7 +337,7 @@ def analyze_batch(
 def create_claim_extraction_batch_tooluse(
     articles: list[dict],
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> str:
     """Create a batch for claim extraction using tool_use.
 
@@ -352,15 +355,16 @@ def create_claim_extraction_batch_tooluse(
     requests = []
     for article in articles:
         text = article["text"]
-        if len(text) > 50000:
-            text = text[:50000]
+        if len(text) > EXTRACTION_MAX_CHARS:
+            text = text[:EXTRACTION_MAX_CHARS]
 
         requests.append(
             {
                 "custom_id": f"claims_{article['id']}",
                 "params": {
                     "model": model,
-                    "max_tokens": 4096,
+                    "max_tokens": MAX_TOKENS,
+                    "thinking": THINKING,
                     "system": CLAIM_EXTRACTION_SYSTEM,
                     "messages": [{"role": "user", "content": CLAIM_EXTRACTION_USER.format(text=text)}],
                     "tools": [CLAIM_EXTRACTION_TOOL],
@@ -376,7 +380,7 @@ def create_claim_extraction_batch_tooluse(
 def create_evidence_batch_tooluse(
     claims_with_context: list[dict],
     client: Anthropic,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
 ) -> str:
     """Create a batch for evidence classification using tool_use.
 
@@ -397,6 +401,7 @@ def create_evidence_batch_tooluse(
                 "params": {
                     "model": model,
                     "max_tokens": 1024,
+                    "thinking": THINKING,
                     "system": EVIDENCE_CLASSIFICATION_SYSTEM,
                     "messages": [
                         {
@@ -472,7 +477,7 @@ def wait_for_batch_tooluse(
 def analyze_batch_tooluse(
     articles: list[dict],
     client: Anthropic | None = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = MODEL,
     poll_interval: int = 10,
 ) -> list[AnalyzedArticle]:
     """Analyze articles using batch API with tool_use for structured output.

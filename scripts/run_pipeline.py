@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from sourcerer.config import MODEL
 from sourcerer.extract import get_client
 from sourcerer.pipeline import (
     classify_evidence_batch,
@@ -99,7 +100,7 @@ Output files:
     parser.add_argument(
         "--model",
         type=str,
-        default="claude-sonnet-4-20250514",
+        default=MODEL,
         help="Claude model to use",
     )
     parser.add_argument(

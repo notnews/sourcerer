@@ -40,8 +40,13 @@ def main():
     parser.add_argument(
         "--max-words",
         type=int,
-        default=3000,
-        help="Truncate articles to this many words",
+        default=0,
+        help=(
+            "Truncate articles to this many words (0 = no truncation). The old "
+            "default of 3000 silently discarded ~47%% of the mean CNN "
+            "transcript, so claims in the back half of an hour of television "
+            "were never seen and nothing recorded that they were dropped."
+        ),
     )
     parser.add_argument(
         "--poll-interval",
@@ -66,7 +71,11 @@ def main():
     for i, sample in enumerate(samples):
         text = sample["text"]
         words = text.split()
-        if len(words) > args.max_words:
+        # 0 disables truncation. Record what was actually seen: silently
+        # dropping half a transcript makes every downstream rate a rate over an
+        # unknown denominator.
+        truncated = bool(args.max_words) and len(words) > args.max_words
+        if truncated:
             text = " ".join(words[: args.max_words])
 
         articles.append(
@@ -77,10 +86,17 @@ def main():
                 "date": sample.get("date", ""),
                 "url": sample.get("url", ""),
                 "text": text,
+                "word_count": len(words),
+                "words_seen": len(text.split()),
+                "truncated": truncated,
             }
         )
 
+    n_truncated = sum(a["truncated"] for a in articles)
+    seen = sum(a["words_seen"] for a in articles)
+    total = sum(a["word_count"] for a in articles)
     print(f"Loaded {len(articles)} articles for batch processing")
+    print(f"  {n_truncated} truncated; {seen:,}/{total:,} words seen ({seen / total:.1%})")
     print("(Batch API provides 50% cost savings vs standard API)")
 
     print("\nInitializing Claude client...")
