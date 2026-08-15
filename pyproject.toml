@@ -31,6 +31,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# Typing a source is covered's job, not this package's. Optional because the
+# claim-extraction and support-classification path -- the part only an LLM can
+# do -- runs without it; sourcerer.sources degrades to sector="unknown" and
+# reports the shortfall, rather than making one of two routes a hard dependency.
+taxonomy = ["covered @ git+https://github.com/notnews/covered@feat/source-taxonomy"]
 dev = [
     "pytest>=7.0.0",
     "ruff>=0.4.0",
