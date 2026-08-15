@@ -38,7 +38,7 @@ from __future__ import annotations
 
 import functools
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass, replace
 from typing import TYPE_CHECKING
 
@@ -99,6 +99,13 @@ _MEDIA_JOBS = frozenset(
 # network's salaried analyst introduced as a guest is a different epistemic
 # object from an outside expert, and telling those apart is the point.
 _HOME_NETWORKS = frozenset({"cnn"})
+
+# spaCy labels, split the way source typing needs rather than the way
+# covered.attribution splits them. GPE and NORP count as institutional because
+# broadcast attribution speaks in metonyms -- "Israel said", "the Kremlin
+# announced" -- and dropping those would lose a real category of source.
+_PERSON_LABELS = frozenset({"PERSON"})
+_ORG_LABELS = frozenset({"ORG", "GPE", "NORP", "FAC", "LOC"})
 
 
 @functools.lru_cache(maxsize=1)
@@ -252,6 +259,154 @@ def _fill_network_staff(label: SourceLabel, role_raw: str) -> SourceLabel:
     if label.sector != "unknown" or not role_raw or not _is_network_staff(role_raw):
         return label
     return replace(label, sector="media", sector_source="outlet_badge")
+
+
+# Prepositions and possessives mark a phrase that describes someone by their
+# relation to a named entity rather than naming them. "Zelenskyy's chief of
+# staff" and "Local officials in Kyiv" are unnamed sources standing next to
+# named ones, and matching them to Zelenskyy or Kyiv converts the single most
+# interesting category -- the sources that cannot be counted -- into the one
+# category that can.
+_RELATIONAL = (" of ", " in ", " at ", " to ", " for ", " from ", "'s ")
+
+
+def _is_descriptive(key: str) -> bool:
+    """Whether a claimer string describes a source rather than naming one."""
+    return key.endswith("'s") or any(marker in key for marker in _RELATIONAL)
+
+
+class EntityIndex:
+    """Every entity spaCy found in one transcript, queryable by name.
+
+    Typing a claimer by running NER on the bare string throws away the sentence
+    it came from, and the loss is not evenly spread: on the pilot it silently
+    dropped ``Volodymyr Zelenskyy``, ``Navalny`` and ``Yurii`` -- names outside
+    the model's Anglo comfort zone -- while getting ``Donald Trump`` right. A
+    measure that fails hardest on foreign names is exactly the wrong measure for
+    a corpus about foreign coverage.
+
+    Running NER once over the whole transcript and looking names up in the
+    result recovers those and costs one pass per story rather than one per
+    claim.
+    """
+
+    def __init__(self, forms: dict[str, str]) -> None:
+        """Build an index over already-lowercased entity text.
+
+        Args:
+            forms: Entity text to entity form.
+        """
+        self.forms = forms
+
+    @classmethod
+    def from_transcript(cls, text: str, nlp=None) -> EntityIndex:
+        """Run NER over one transcript and index what it found.
+
+        Args:
+            text: Full transcript text.
+            nlp: Loaded spaCy pipeline; loaded on demand when omitted.
+
+        Returns:
+            An index over every entity in the transcript.
+        """
+        from covered.config import SPACY_MODEL_FULL
+        from covered.ner import load_nlp
+
+        pipeline = nlp or load_nlp(SPACY_MODEL_FULL)
+        counts: dict[str, Counter] = defaultdict(Counter)
+        for ent in pipeline(text).ents:
+            counts[ent.text.strip().lower()][ent.label_] += 1
+        forms = {}
+        for text_key, labels in counts.items():
+            top = labels.most_common(1)[0][0]
+            if top in _PERSON_LABELS:
+                forms[text_key] = "person"
+            elif top in _ORG_LABELS:
+                forms[text_key] = "organization"
+        return cls(forms)
+
+    def form(self, name: str) -> str | None:
+        """Look a claimer up among the transcript's entities.
+
+        Args:
+            name: Claimer string as the model reported it.
+
+        Returns:
+            ``"person"``, ``"organization"``, or ``None`` when the transcript
+            contains no entity by that name.
+        """
+        key = (name or "").strip().lower()
+        if not key:
+            return None
+        if key in self.forms:
+            return self.forms[key]
+        if _is_descriptive(key):
+            return None
+        head = key.replace(",", " ").split()[-1]
+        for text_key, form in self.forms.items():
+            if len(text_key) > 3 and (key in text_key or text_key in key):
+                # The claimer's head token must appear in what matched it. A
+                # name's head is its surname, so "President Joe Biden" reaches
+                # "joe biden"; a description's head is a common noun the entity
+                # cannot contain, so "top Russian general" does not reach
+                # "russia" and stays the unnamed source it is.
+                if head in text_key.replace(",", " ").split():
+                    return form
+        return None
+
+
+def describe_source(
+    label: SourceLabel,
+    claimer: str,
+    entities: EntityIndex | None = None,
+    nlp=None,
+) -> SourceLabel:
+    """Fill the entity-form and gender axes, which need a name and a model.
+
+    ``taxonomy.classify`` reads a role clause and so leaves these unknown by
+    construction. They are filled here because this is the first point that has
+    the claimer's name in hand.
+
+    Gender is read only for people, and only after Wikidata has been asked
+    first: for the recurring figures who dominate this corpus it records the
+    fact rather than inferring it, and it is a route that shares no code with
+    the name model, so where both answer, agreement is evidence.
+
+    Args:
+        label: Label from :func:`classify_claimer`.
+        claimer: Name or description of the source.
+        entities: Entities of the transcript this claim came from. Strongly
+            preferred: without it the claimer string is typed in isolation,
+            which fails disproportionately on non-Anglo names.
+        nlp: Loaded spaCy pipeline, passed through to avoid a reload per call.
+
+    Returns:
+        The label with ``entity_form``, ``gender`` and their provenance set.
+        Anything not established stays ``unknown``: an organisation has no
+        gender to read, and neither does "officials".
+    """
+    from covered import persons, wikidata
+
+    in_context = entities.form(claimer) if entities is not None else None
+    if in_context is not None:
+        form, form_source = in_context, "ner_context"
+    else:
+        form, form_source = persons.entity_form(claimer, nlp)
+    label = replace(label, entity_form=form, entity_form_source=form_source)
+    if form != "person":
+        return label
+
+    known = wikidata.resolve(claimer)
+    if known is not None and known.gender != "unknown":
+        return replace(label, gender=known.gender, gender_source="wikidata")
+
+    reading = persons.gender(claimer)
+    return replace(
+        label,
+        gender=reading.label,
+        gender_p=reading.p_female,
+        gender_source=reading.source,
+    )
 
 
 def classify_claimer(

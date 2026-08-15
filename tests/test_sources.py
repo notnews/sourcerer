@@ -136,6 +136,82 @@ def test_newsroom_staff_are_typed_by_what_they_are(index: SpeakerIndex) -> None:
     assert label.sector == "media"
 
 
+TRANSCRIPT_WITH_ENTITIES = """\
+JOHN BERMAN, CNN ANCHOR: President Joe Biden spoke today. Volodymyr Zelenskyy
+responded from Kyiv, and Zelenskyy's chief of staff briefed reporters. Local
+officials in Kyiv confirmed it, and a top Russian general disputed it. The
+Washington Post reported the exchange.
+"""
+
+
+@pytest.fixture(scope="module")
+def entities():
+    from covered.ner import load_nlp
+
+    from sourcerer.sources import EntityIndex
+
+    return EntityIndex.from_transcript(TRANSCRIPT_WITH_ENTITIES, load_nlp("en_core_web_sm"))
+
+
+def test_a_name_resolves_through_the_transcript(entities) -> None:
+    """In-context typing, which bare-string NER gets wrong on non-Anglo names.
+
+    Running NER on "Volodymyr Zelenskyy" alone returns nothing from the large
+    model; in the sentence it came from it is a person. A measure that fails
+    hardest on foreign names is the wrong measure for a foreign-news corpus.
+    """
+    assert entities.form("Volodymyr Zelenskyy") == "person"
+    assert entities.form("President Joe Biden") == "person"
+
+
+def test_a_relational_description_is_not_the_person_it_mentions(entities) -> None:
+    """The false positive that would destroy the unnamed-source count.
+
+    "Zelenskyy's chief of staff" is an unnamed person standing next to a named
+    one. Substring matching typed it as Zelenskyy, and "Local officials in
+    Kyiv" as the city -- converting the one category that cannot be counted
+    into the one that can, which is the opposite of what the bounds are for.
+    """
+    assert entities.form("Zelenskyy's chief of staff") is None
+    assert entities.form("Local officials in Kyiv") is None
+    assert entities.form("Peskov's son") is None
+
+
+def test_a_role_description_does_not_reach_a_nearby_country(entities) -> None:
+    """The head noun must appear in whatever matched it.
+
+    A name's head is its surname; a description's head is a common noun no
+    entity carries. That is what stops "top Russian general" reaching "Russia".
+    """
+    assert entities.form("top Russian general") is None
+
+
+def test_an_unknown_name_is_absent_rather_than_guessed(entities) -> None:
+    assert entities.form("Nobody Whatsoever") is None
+    assert entities.form("") is None
+
+
+def test_describe_source_types_and_genders_a_person(entities) -> None:
+    from sourcerer.sources import describe_source
+
+    label, _ = classify_claimer("Volodymyr Zelenskyy", "quoted_source", None)
+    described = describe_source(label, "Volodymyr Zelenskyy", entities)
+    assert described.entity_form == "person"
+    assert described.gender == "male"
+    assert described.gender_source in {"wikidata", "name_model"}
+
+
+def test_an_organisation_gets_no_gender(entities) -> None:
+    """There is nothing to read, so nothing is read."""
+    from sourcerer.sources import describe_source
+
+    label, _ = classify_claimer("The Washington Post", "quoted_source", None)
+    described = describe_source(label, "The Washington Post", entities)
+    assert described.entity_form == "organization"
+    assert described.gender == "unknown"
+    assert described.gender_source == "none"
+
+
 def test_on_air_role_falls_back_to_the_string_when_unmatched(index: SpeakerIndex) -> None:
     label, route = classify_claimer("A Senior U.S. Official", "guest", index)
     assert route in {"string", "none"}

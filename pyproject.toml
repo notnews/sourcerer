@@ -35,7 +35,13 @@ dependencies = [
 # claim-extraction and support-classification path -- the part only an LLM can
 # do -- runs without it; sourcerer.sources degrades to sector="unknown" and
 # reports the shortfall, rather than making one of two routes a hard dependency.
-taxonomy = ["covered @ git+https://github.com/notnews/covered@feat/source-taxonomy"]
+taxonomy = [
+    "covered @ git+https://github.com/notnews/covered@feat/source-taxonomy",
+    # covered.persons needs a spaCy model to tell a person from an institution,
+    # and names it by string rather than depending on it. Pinned here so the
+    # extra actually installs something that works.
+    "en_core_web_lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.8.0/en_core_web_lg-3.8.0-py3-none-any.whl",
+]
 dev = [
     "pytest>=7.0.0",
     "ruff>=0.4.0",
