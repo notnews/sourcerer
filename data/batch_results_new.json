@@ -1,0 +1,2044 @@
+{
+  "metrics": {
+    "summary": {
+      "total_articles": 3,
+      "total_claims": 107,
+      "total_words": 6000,
+      "claims_per_100_words": 1.7833333333333332,
+      "avg_claims_per_article": 35.666666666666664
+    },
+    "evidence_distribution": {
+      "unsupported": 65,
+      "witness": 14,
+      "official": 7,
+      "expert": 2,
+      "attribution": 9,
+      "direct": 10
+    },
+    "claim_type_distribution": {
+      "factual": 71,
+      "predictive": 16,
+      "evaluative": 13,
+      "causal": 5,
+      "attributive": 2
+    },
+    "claimer_role_distribution": {
+      "anchor": 21,
+      "quoted_source": 31,
+      "guest": 22,
+      "reporter": 33
+    },
+    "source_quality": {
+      "total_evidence_instances": 107,
+      "named_sources": 39,
+      "named_source_rate": 0.3644859813084112,
+      "primary_sources": 33,
+      "primary_source_rate": 0.308411214953271
+    },
+    "by_network": {
+      "CNN": {
+        "articles": 3,
+        "total_claims": 107,
+        "total_words": 6000,
+        "claims_per_100_words": 1.7833333333333332,
+        "evidence_distribution": {
+          "unsupported": 65,
+          "witness": 14,
+          "official": 7,
+          "expert": 2,
+          "attribution": 9,
+          "direct": 10
+        }
+      }
+    }
+  },
+  "articles": [
+    {
+      "article_id": "0",
+      "network": "CNN",
+      "program": "Amanpour",
+      "date": "January 15, 2024",
+      "url": "https://transcripts.cnn.com/show/ampr/date/2024-01-15/segment/01",
+      "content_type": null,
+      "word_count": 2000,
+      "num_claims": 32,
+      "claims_per_100_words": 1.6,
+      "evidence_distribution": {
+        "unsupported": 24,
+        "witness": 1,
+        "official": 5,
+        "expert": 1,
+        "attribution": 1
+      },
+      "claims": [
+        {
+          "text": "Houthis fired a ballistic missile at a U.S. vessel off the coast of Yemen today.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Houthis fired a ballistic missile at a U.S. vessel off the coast of Yemen today",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The Israel Hamas war could expand due to Houthis still fighting even after U.S.-led air strikes.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "Houthis fired a ballistic missile at a U.S. vessel off the coast of Yemen today, showing that they're still fighting even after U.S.-led air strikes, adding to fears the Israel Hamas war could expand.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Christiane Amanpour",
+              "source_role": "CNN International Host",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "After 100 days of this war, the toll on civilians keeps getting worse.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "The World Health Organization warns Gaza could be on the brink of famine. With the entire population, more than 2 million people suffering from an acute shortage of food, water and medical assistance.",
+              "evidence_type": "official",
+              "evidence_subtype": "government_statement",
+              "source_entity": "World Health Organization",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Gaza could be on the brink of famine.",
+          "claimer": "World Health Organization",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "The World Health Organization warns Gaza could be on the brink of famine.",
+              "evidence_type": "official",
+              "evidence_subtype": "government_statement",
+              "source_entity": "World Health Organization",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "The entire population of Gaza, more than 2 million people, is suffering from an acute shortage of food, water and medical assistance.",
+          "claimer": "World Health Organization",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "The World Health Organization warns Gaza could be on the brink of famine. With the entire population, more than 2 million people suffering from an acute shortage of food, water and medical assistance.",
+              "evidence_type": "official",
+              "evidence_subtype": "government_statement",
+              "source_entity": "World Health Organization",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "People in Ukraine continue to face death and displacement as homes, hospitals and schools are destroyed.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Martin Griffiths, undersecretary general for Humanitarian Affairs, tweeted about Ukraine today saying, remember Ukraine? We do. People continue to face death and displacement as homes, hospitals and schools are destroyed.",
+              "evidence_type": "official",
+              "evidence_subtype": "government_statement",
+              "source_entity": "United Nations",
+              "source_person": "Martin Griffiths",
+              "source_role": "undersecretary general for Humanitarian Affairs",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Yemen was one of the few, perhaps the only place in the world where we all had some hopes of real peace, after six or seven years of terrible war.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "That hope of peace in Yemen is being snatched away from us by these circumstances.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "causal",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The current situation in Yemen is one more terrible consequence of the war in Gaza.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "causal",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "90 percent of the population of Yemen relies on food aid that arrives via sea.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "the vast majority, the vast majority, 90 percent of the population of Yemen relies on food aid. that arrives via sea",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": "AMANPOUR",
+              "source_role": "interviewer/journalist",
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Using high-tech military methods or ground force assault methods to root out terrorist groups well entrenched doesn't work very easily.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The hope that the Israeli IDF approach in Southern Gaza was going to be more surgical, more precise, and more targeted on specific targets of Hamas hasn't been realized.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Just under 400,000 people in Gaza are in that section that is technically characterized as being at risk of famine.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Many U.N. agencies are saying that a great majority of those 400,000 are actually in famine, not just at risk of famine.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "attributive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "300,000 people are still living in the north of Gaza who have not had any humanitarian aid for some time.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "These facts will create generational hatred.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "There are two entry points into Gaza: one through the Rafah Crossing, the other through Kerem Shalom.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The Israeli government has been good enough to open up Kerem Shalom to traffic.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The constraint on humanitarian aid delivery is not the number of trucks that can get in, but the access inside Gaza.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "causal",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Before October 7th, 500 trucks a day were going into Gaza.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Now, a maximum of 127 trucks per day are going into Gaza.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "U.S. Senator Chris Van Hollen puts it on the Israeli authorities to get the flow moving.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "attributive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "There is quite an extensive use of the dual use category by those who are checking the trucks.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "80 percent of Gazan sustenance prior to October 7th was private sector.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "what we all remember clearly is that 80 percent of Gazan sustenance prior to October 7th was private sector",
+              "evidence_type": "expert",
+              "evidence_subtype": "named_expert",
+              "source_entity": null,
+              "source_person": "GRIFFITHS",
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We are asking for just over $3 billion for a humanitarian aid operation for Ukraine this year.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "This year's request is about $6 to $7 million less than for last year.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The absence of humanitarian aid funding has become an attack on the fabric of society of Ukraine itself.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "causal",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Ukraine's extraordinarily resilient society is under grave threat.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "40 percent of Ukrainians today require humanitarian assistance this year.",
+          "claimer": "Christiane Amanpour",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "according to the U.N., 40 percent of Ukrainians today require humanitarian assistance this year",
+              "evidence_type": "official",
+              "evidence_subtype": "agency_data",
+              "source_entity": "U.N.",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Ukraine's elderly are often the only people who remain along the country's hundreds of miles of frontline.",
+          "claimer": "The New York Times",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "In \"The New York Times,\" here's a quote from there. Ukraine's elderly are often the only people who remain along the country's hundreds of miles of frontline.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "The New York Times",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Last year in Britain, the people of that country gave $12.7 billion to charity.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "British people gave much more to charity than the government aid program.",
+          "claimer": "Martin Griffiths",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "article_id": "1",
+      "network": "CNN",
+      "program": "Anderson Cooper 360 Degrees",
+      "date": "January 14, 2024",
+      "url": "https://transcripts.cnn.com/show/acd/date/2024-01-14/segment/01",
+      "content_type": null,
+      "word_count": 2000,
+      "num_claims": 37,
+      "claims_per_100_words": 1.8499999999999999,
+      "evidence_distribution": {
+        "official": 1,
+        "witness": 4,
+        "attribution": 6,
+        "unsupported": 21,
+        "direct": 5
+      },
+      "claims": [
+        {
+          "text": "CNN's special election coverage of the Iowa caucuses begins at 4:00 tomorrow afternoon.",
+          "claimer": "Burnett",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "we're back beginning at 4:00 tomorrow afternoon to kick off CNN's special election coverage of the Iowa caucuses",
+              "evidence_type": "official",
+              "evidence_subtype": "press_release",
+              "source_entity": "CNN",
+              "source_person": "Erin Burnett",
+              "source_role": "CNN anchor/host",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "The Iowa caucuses are 24 hours away from the first vote of the 2024 presidential race.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "We're now 24 hours away from the first vote to the 2024 presidential race. 24 hours away from the start of the Iowa caucuses most of which convene at this time tomorrow night",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Anderson Cooper",
+              "source_role": "CNN anchor",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Most Iowa caucuses convene at this time tomorrow night.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "We're now 24 hours away from the first vote to the 2024 presidential race. 24 hours away from the start of the Iowa caucuses most of which convene at this time tomorrow night",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Anderson Cooper",
+              "source_role": "CNN Anchor",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "There is a blizzard in the final days of the campaign and record cold temperatures are expected tomorrow night.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "a blizzard in the final days of the campaign and record cold temperatures expected tomorrow tonight",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Anderson Cooper",
+              "source_role": "anchor",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Florida Senator Marco Rubio announced he's backing the former president and not his home state governor Ron DeSantis.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Florida Senator Marco Rubio announcing he's backing the former president and not his home state governor Ron DeSantis.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "CNN",
+              "source_person": null,
+              "source_role": "news anchor",
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Former candidate and North Dakota governor Doug Burgum endorsed the former president today.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Former candidate and North Dakota governor Doug Burgum today doing the same",
+              "evidence_type": "attribution",
+              "evidence_subtype": "unnamed_secondary",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Former Maryland governor Larry Hogan endorsed Nikki Haley.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "former Maryland governor Larry Hogan endorsing Nikki Haley",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "CNN",
+              "source_person": "Anderson Cooper",
+              "source_role": "CNN Anchor",
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "New polling from the Des Moines Register shows Nikki Haley now running ahead of Governor DeSantis but still a distant second to the former president who's nearly 30 points ahead.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "New polling from the \"Des Moines Register\" showing her now running ahead of Governor DeSantis but still a distant second to the former president who's nearly 30 points ahead.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "Des Moines Register",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "88 percent of Trump supporters say they are extremely or very enthusiastic compared to 62 percent and 39 percent for DeSantis and Haley respectively.",
+          "claimer": "Anderson Cooper",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "New polling from the \"Des Moines Register\" showing her now running ahead of Governor DeSantis but still a distant second to the former president who's nearly 30 points ahead. But polling also shows him with a significant lead in how enthusiastic his supporters said they are. 88 percent saying they are extremely or are very enth",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "Des Moines Register",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Donald Trump had three or four events cancelled because of the weather.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Donald Trump spoke for nearly two hours in his only event of the weekend.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "If you want to save America from crooked Joe Biden, you must go caucus tomorrow.",
+          "claimer": "Donald Trump",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "DONALD TRUMP (R), PRESIDENTIAL CANDIDATE: If you want to save America from crooked Joe Biden, you must go caucus tomorrow.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Donald Trump",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Even if you vote and then pass away, it's worth it.",
+          "claimer": "Donald Trump",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "DONALD TRUMP (R), PRESIDENTIAL CANDIDATE: If you want to save America from crooked Joe Biden, you must go caucus tomorrow. The very first step. You can't sit home. If you are sick as a dog, you say, darling, I've got to make it. Even if you vote and then pass away, it's worth it.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Donald Trump",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Donald Trump's team's ground game has been reaching out to people who have supported Donald Trump, but never caucused before.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The weather may deter Trump supporters who have never shown up before from caucusing.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Trump's campaign is concerned that their margin is actually smaller than the polls suggest.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "They need a big margin to win not just to win the delegates, but also to set the tone for the primary season and stop momentum from his GOP rivals.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "causal",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Trump has been asking his senior advisers about what they think about turnout and if they think the weather is going to affect it.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Trump is concerned that people might decide they don't need to show up because of the weather and Trump's big lead.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The new poll demonstrates that Haley has continued momentum.",
+          "claimer": "Haley campaign",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "New polling from the \"Des Moines Register\" showing her now running ahead of Governor DeSantis but still a distant second to the former president who's nearly 30 points ahead.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "Des Moines Register",
+              "source_person": null,
+              "source_role": null,
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Expectations aren't as high for Haley in Iowa as they are for Ron DeSantis who has put tremendous resources into the state.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "In the last seven out of the last eight presidential elections Republicans have lost the popular vote.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "She's best poised to be the one to change that trend of Republican losses.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Trump and DeSantis don't perform as well as she does in theoretical polls against President Biden.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "There are still Iowans who haven't made up their mind.",
+          "claimer": "Haley's team",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "At least a dozen folks raised their hand when asked if they were seeing Haley for the first time.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The Koch PAC's goal is to knock on 250,000 doors of Iowans before the caucus tomorrow.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The DeSantis super PAC is going to hit a million doors by tomorrow.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Ron DeSantis and his team are very confident that the operations they've built and the enthusiasm from their supporters is going to come through for them tomorrow.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "DeSantis' team doesn't believe the Des Moines Register poll showing him in third place is how it's going to shake out tomorrow.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "We built a great army here.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R), PRESIDENTIAL CANDIDATE: We built a great army here.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Tomorrow is going to be fun for us.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "Tomorrow is going to be fun for us.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Erin Burnett",
+              "source_role": "anchor",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "I would much rather be an underdog.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R), PRESIDENTIAL CANDIDATE: We built a great army here. Tomorrow is going to be fun for us, and I love when, you know, the media and stuff, I would much rather be an underdog. That's how I've done every race that I've ever been in.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "That's how I've done every race that I've ever been in.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R), PRESIDENTIAL CANDIDATE: We built a great army here. Tomorrow is going to be fun for us, and I love when, you know, the media and stuff, I would much rather be an underdog. That's how I've done every race that I've ever been in.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Governor, Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Never Back Down super PAC has done some 940,000 doors in Iowa over the last several months.",
+          "claimer": "Never Back Down super PAC",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Never Back Down has poured millions of dollars and a lot of time into Iowa.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "DeSantis has visited all 99 counties in Iowa.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "article_id": "2",
+      "network": "CNN",
+      "program": "CNN Newsroom",
+      "date": "January 14, 2024",
+      "url": "https://transcripts.cnn.com/show/cnr/date/2024-01-14/segment/01",
+      "content_type": null,
+      "word_count": 2000,
+      "num_claims": 38,
+      "claims_per_100_words": 1.9,
+      "evidence_distribution": {
+        "witness": 9,
+        "unsupported": 20,
+        "direct": 5,
+        "official": 1,
+        "attribution": 2,
+        "expert": 1
+      },
+      "claims": [
+        {
+          "text": "It's the last day before the first votes of the 2024 presidential campaign.",
+          "claimer": "Fredricka Whitfield",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Here we go, it's the last day before the first votes of the 2024 presidential campaign. And we're now less than 30 hours away from the start of the Iowa caucuses.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Fredricka Whitfield",
+              "source_role": "CNN HOST",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We're now less than 30 hours away from the start of the Iowa caucuses.",
+          "claimer": "Fredricka Whitfield",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "Hello everyone. Thank you so much for joining me this Sunday. I'm Fredricka Whitfield. All right. Here we go, it's the last day before the first votes of the 2024 presidential campaign. And we're now less than 30 hours away from the start of the Iowa caucuses.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": "CNN",
+              "source_person": "Fredricka Whitfield",
+              "source_role": "CNN HOST",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Candidates are out in full force crisscrossing the Hawkeye State.",
+          "claimer": "Fredricka Whitfield",
+          "claimer_role": "anchor",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Subzero temperatures are expected to greet caucus-goers as they head out tomorrow.",
+          "claimer": "Fredricka Whitfield",
+          "claimer_role": "anchor",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "Subzero temperatures in fact are expected to greet caucus-goers as they head out tomorrow.",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "One day from now, we're going to win Iowa's first-in-the-nation caucuses.",
+          "claimer": "Donald Trump",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "DONALD TRUMP, FORMER PRESIDENT OF THE UNITED STATES: One day from now, we're going to win Iowa's first-in-the-nation caucuses.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Donald Trump",
+              "source_role": "Former President of the United States",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We kept you first in the nation.",
+          "claimer": "Donald Trump",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "DONALD TRUMP, FORMER PRESIDENT OF THE UNITED STATES: One day from now, we're going to win Iowa's first-in-the-nation caucuses. We kept you first in the nation.",
+              "evidence_type": "witness",
+              "evidence_subtype": "named_witness",
+              "source_entity": null,
+              "source_person": "Donald Trump",
+              "source_role": "Former President of the United States",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We're going to have a historic victory that will echo throughout the country and all around the world.",
+          "claimer": "Donald Trump",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "DONALD TRUMP, FORMER PRESIDENT OF THE UNITED STATES: One day from now, we're going to win Iowa's first-in-the-nation caucuses. We kept you first in the nation. In a historic victory, a victory that will echo throughout the country and all around the world.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Donald Trump",
+              "source_role": "Former President of the United States",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Iowans will decide intensely tomorrow.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "NIKKI HALEY (R), PRESIDENTIAL CANDIDATE: I think Iowans will decide intensely tomorrow.",
+              "evidence_type": "official",
+              "evidence_subtype": "government_statement",
+              "source_entity": null,
+              "source_person": "Nikki Haley",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We've been crisscrossing the state for days now.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "We're going to keep crisscrossing the state. We've done that for days now.",
+              "evidence_type": "witness",
+              "evidence_subtype": "named_witness",
+              "source_entity": null,
+              "source_person": "Nikki Haley",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Our folks are committed and they're going to be there.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R-FL), PRESIDENTIAL CANDIDATE: I think anyone that tells you that they can model exactly who is going to turn out in the broader electorate, it's an unknowable. But I think with our folks, they're committed, they're going to be there. And we're going to have a good day.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Presidential Candidate/Governor of Florida",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We're going to have a good day.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R-FL), PRESIDENTIAL CANDIDATE: I think anyone that tells you that they can model exactly who is going to turn out in the broader electorate, it's an unknowable. But I think with our folks, they're committed, they're going to be there. And we're going to have a good day.",
+              "evidence_type": "witness",
+              "evidence_subtype": "named_witness",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Governor of Florida, Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We're seeing a late surge here.",
+          "claimer": "Vivek Ramaswamy",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "VIVEK RAMASWAMY (R), PRESIDENTIAL CANDIDATE: I think we're seeing a late surge here.",
+              "evidence_type": "witness",
+              "evidence_subtype": "named_witness",
+              "source_entity": null,
+              "source_person": "Vivek Ramaswamy",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We are going to deliver a shock to the world Monday night.",
+          "claimer": "Vivek Ramaswamy",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "VIVEK RAMASWAMY (R), PRESIDENTIAL CANDIDATE: I think we're seeing a late surge here. We are going to deliver a shock to the world Monday night with all of your help to do it.",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "Vivek Ramaswamy",
+              "source_role": "Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Donald Trump canceled several events because of the weather.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "This is his only event of the weekend.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The Des Moines Register poll has him up by 20 points.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "They want a 20-point win.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "They saw that \"Des Moines Register\" poll last night that has him up by 20 points. They want a 20-point win.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "unnamed_secondary",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Anything above 12 points would be a historic win.",
+          "claimer": "Trump advisers",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "They have seen a rise in Nikki Haley's polls in New Hampshire.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "They're spending $4.5 million on advertisements against her.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "He is concerned about the weather.",
+          "claimer": "Kristen Holmes",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "She had to cancel her event in the eastern part of the state because of the weather.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The Des Moines Register poll shows her pulling ahead of Ron DeSantis.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Of Trump supporters, 49 percent say they're extremely enthusiastic.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Only 9 percent of Nikki Haley supporters say they're extremely enthusiastic.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "The momentum and energy on the ground is strong.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "This is moving in the right direction.",
+          "claimer": "Nikki Haley",
+          "claimer_role": "quoted_source",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "It's negative 9 degrees out there.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "It's negative 9 degrees out there.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": "reporter",
+              "is_named": false,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "It's negative 32 with windchill.",
+          "claimer": "Kylie Atwood",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "It's negative 32 with windchill.",
+              "evidence_type": "witness",
+              "evidence_subtype": "reporter_observation",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": "reporter",
+              "is_named": false,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Ron DeSantis is polling in third place in the most recent poll.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "He likes being the underdog.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "We have got a huge number of people that have committed to caucus.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "We have got a huge number of people that have committed to caucus",
+              "evidence_type": "direct",
+              "evidence_subtype": "video_audio",
+              "source_entity": null,
+              "source_person": "DeSantis",
+              "source_role": null,
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "Our folks are going to turn out.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "GOV. RON DESANTIS (R-FL), PRESIDENTIAL CANDIDATE: I think anyone that tells you that they can model exactly who is going to turn out in the broader electorate, it's an unknowable. But I think with our folks, they're committed, they're going to be there. And we're going to have a good day.",
+              "evidence_type": "witness",
+              "evidence_subtype": "named_witness",
+              "source_entity": null,
+              "source_person": "Ron DeSantis",
+              "source_role": "Governor/Presidential Candidate",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "We're going to do well because we have done it right.",
+          "claimer": "Ron DeSantis",
+          "claimer_role": "quoted_source",
+          "claim_type": "predictive",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Never Back Down has knocked on 940,000 doors in the last several months.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "He's gone to all 99 counties.",
+          "claimer": "Jessica Dean",
+          "claimer_role": "reporter",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "He's gone to all 99 counties.",
+              "evidence_type": "attribution",
+              "evidence_subtype": "named_secondary",
+              "source_entity": "CNN",
+              "source_person": "Jessica Dean",
+              "source_role": "reporter",
+              "is_named": true,
+              "is_primary": false
+            }
+          ]
+        },
+        {
+          "text": "Motivation is incredibly important in a caucus.",
+          "claimer": "Matt Hall",
+          "claimer_role": "guest",
+          "claim_type": "evaluative",
+          "evidence": [
+            {
+              "evidence_quote": "MATT HALL, FORMER CHIEF OF STAFF FOR TIM KAINE: Well they -- thanks Fred, good to be with you.I think they want to make sure that their decision, what they're hearing from their preferred candidate at this point, continues to follow through (ph), that they believe in their candidate. Motivation is incredibly important in a caucus.",
+              "evidence_type": "expert",
+              "evidence_subtype": "named_expert",
+              "source_entity": null,
+              "source_person": "Matt Hall",
+              "source_role": "Former Chief of Staff for Tim Kaine",
+              "is_named": true,
+              "is_primary": true
+            }
+          ]
+        },
+        {
+          "text": "For a majority of caucus-goers they know where they are and who they're going to support.",
+          "claimer": "Matt Hall",
+          "claimer_role": "guest",
+          "claim_type": "factual",
+          "evidence": [
+            {
+              "evidence_quote": "",
+              "evidence_type": "unsupported",
+              "evidence_subtype": "no_attribution",
+              "source_entity": null,
+              "source_person": null,
+              "source_role": null,
+              "is_named": false,
+              "is_primary": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

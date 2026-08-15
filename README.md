@@ -1,22 +1,232 @@
-## Sourcerer: Inferring the Quality of Evidence Behind the Claims
+## Sourcerer: Analyzing the Evidence Behind News Claims
 
-The information age has bought both bounty and pestilence. Today, we are deluged with both correct and incorrect information. If we knew how to tell apart right from wrong claims, there would be no rise in misinformation.
+Sourcerer analyzes news articles to classify *how claims are epistemologically supported*—the types of evidence backing each claim (official sources, expert testimony, documents, hearsay, etc.).
 
-Assessing the truth value of a claim, however, is hard. It needs expert knowledge and careful research. Take for instance, fact check operations, which cull a small number of claims and try to validate those claims. When validating, they have to grapple with which parts of wrong, which parts of right but misleading, which parts are debatable, and which parts are right. All in all it is a noisy and time consuming process to vet a few claims. As the rate of production of information increases, thwarting misinformation by checking all the claims seems implausibly expensive.
+### Why This Matters
 
-Rather than assess the claims directly, we can assess the process. Or, in particular, the residue of one part of the process for making the claim---sources. Except for claims based on private experience, e.g., religious experience, claims are based on sources. We can use the features of these sources to infer credibility. The first the number of sources with to make a claim. All else equal, the more number of people who say the same thing, the greater the chances that the claim is true. None of this is to undercut a common observation: lots of people can be wrong about something. A harder test for veracity if a diverse set of people say the same thing. The third test is checking the credibility of the sources.
+The information age has brought both bounty and pestilence. We're deluged with correct and incorrect information, and fact-checking every claim is implausibly expensive.
 
-Relying on the residue is not a panacea. People can simply lie about the source. We want the source to verify what they have been quoted as saying. And in the era of cheap data, this can be easily enabled. Quotes can be linked to video interviews or automatic transcriptions electronically signed by the interviewee. The same system can be scaled to institutions. The downside is that the system may prove onerous. On the other hand, commonly, the same source is cited by many people so a public repository of verified claims and evidence can mitigate much of the burden.
+Rather than verify claims directly, we can assess the *residue of the process*—the sources. Features of these sources help infer credibility:
+- **Number of sources**: More corroboration → higher confidence
+- **Diversity of sources**: Independent confirmations strengthen claims
+- **Source credibility**: Official records vs. anonymous tips
 
-But will this solve the problem? Likely not. For one, people can still commit sins of omission. For two, they can still draft things in misleading ways. For three, trust in sources may not be tied to correctness. All we have done is built a system for establishing provenance. And establishing the provenance is not enough. Instead, we need a system that incentivizes both correctness and presentation that makes correct interpretation highly likely. It is a high bar. But it is the bar---correct and liable to correctly interpreted.
+Sourcerer provides systematic measurement of these epistemological qualities.
 
-To help news producers clear the bar, we need to equip them with skills and incentivize these. Incentive could come from ratings of correctness of a random sample of their work or it could come from teaching consumers. 
+---
 
-To address the problem, we start by building a simple measure that sheds light on the quality of claims made in the news---the number of sources cited in a news article per 100 words. We also provide a dictionary of sources.
+## Pipeline
 
-We plan to expand the functionality to include a typology of the sources (government, NGO, people on the street, politician, policy staffer, campaign staff, race, gender) and provide some summary  measures of the diversity of sources.
+```
+[News Article/Transcript]
+           │
+           ▼
+┌──────────────────────────┐
+│ 1. Content Classification │  Political news? Entertainment? Sports?
+└──────────────────────────┘
+           │
+           ▼
+┌──────────────────────────┐
+│ 2. Claim Extraction       │  Extract atomic claims with claimer info
+└──────────────────────────┘
+           │
+           ▼
+┌──────────────────────────┐
+│ 3. Evidence Classification │  Classify supporting evidence per claim
+└──────────────────────────┘
+           │
+           ▼
+┌──────────────────────────┐
+│ 4. Aggregation           │  Article/network-level metrics
+└──────────────────────────┘
+           │
+           ▼
+    [Structured Output]
+     - JSON with full details
+     - CSV for analysis
+     - HTML/Markdown reports
+```
 
+---
 
-### Authors
+## Taxonomy
 
-Atul Dhingra and Gaurav Sood
+### Content Types
+| Type | Description |
+|------|-------------|
+| `political_news` | Substantive political/policy reporting |
+| `breaking_news` | Hard news events |
+| `analysis` | Opinion/commentary segments |
+| `interview` | Interview-based content |
+| `entertainment` | Entertainment news |
+| `lifestyle` | Lifestyle, travel, human interest |
+| `sports` | Sports coverage |
+| `other` | Doesn't fit above |
+
+### Claim Types
+| Type | Description | Example |
+|------|-------------|---------|
+| `factual` | Verifiable statements | "The unemployment rate is 3.5%" |
+| `causal` | X caused Y | "Tax cuts led to the deficit" |
+| `predictive` | Future assertions | "Inflation will rise next quarter" |
+| `evaluative` | Judgments | "The policy was a failure" |
+| `attributive` | X said Y | "The Senator stated that..." |
+
+### Evidence Types
+
+| Category | Subtype | Example |
+|----------|---------|---------|
+| **official** | `government_statement` | "The White House said..." |
+| | `agency_data` | "According to CDC data..." |
+| | `court_documents` | "Court filings reveal..." |
+| | `press_release` | "The company announced..." |
+| **expert** | `named_expert` | "Dr. Fauci, infectious disease specialist, said..." |
+| | `unnamed_expert` | "Experts say..." |
+| | `academic_study` | "A study in Nature found..." |
+| **direct** | `documents_records` | "Emails obtained by CNN show..." |
+| | `video_audio` | "Video footage shows..." |
+| | `data_analysis` | "Our analysis of voting records..." |
+| **witness** | `named_witness` | "John Smith, who was present, said..." |
+| | `unnamed_witness` | "A witness told reporters..." |
+| | `reporter_observation` | "CNN observed..." |
+| **attribution** | `named_secondary` | "According to a Times report..." |
+| | `unnamed_secondary` | "Sources familiar with the matter..." |
+| | `anonymous` | "Sources say..." |
+| **unsupported** | `no_attribution` | Bare assertion with no source |
+| | `vague_attribution` | "Many believe...", "Critics say..." |
+
+### Source Attribution Fields
+For granular tracking of *who* is being cited:
+- `source_entity`: Organization/institution (e.g., "CDC", "White House", "Harvard")
+- `source_person`: Specific person (e.g., "Dr. Anthony Fauci", "Press Secretary")
+- `source_role`: Title/role (e.g., "epidemiologist", "spokesperson", "senator")
+
+---
+
+## Output Format
+
+### CSV Columns
+Each row is one claim-evidence pair:
+
+| Column | Description |
+|--------|-------------|
+| `network` | News organization |
+| `program` | Show name |
+| `date` | Air date |
+| `url` | Source URL |
+| `content_type` | political_news, entertainment, etc. |
+| `claim` | The claim text |
+| `claimer` | Who made the claim |
+| `claimer_role` | anchor/guest/reporter/quoted_source |
+| `claim_type` | factual/causal/predictive/evaluative/attributive |
+| `evidence_type` | official/expert/direct/witness/attribution/unsupported |
+| `evidence_subtype` | Specific subtype |
+| `evidence_quote` | Verbatim quote from article |
+| `source_entity` | Organization cited |
+| `source_person` | Person cited |
+| `source_role` | Role/title |
+| `is_named` | Is source explicitly named? |
+| `is_primary` | Is this firsthand evidence? |
+
+### Example Output
+
+```
+claim: "The unemployment rate fell to 3.5% in December."
+claimer: Anderson Cooper
+claimer_role: anchor
+claim_type: factual
+evidence_type: official
+evidence_subtype: agency_data
+evidence_quote: "According to Bureau of Labor Statistics data released Friday"
+source_entity: Bureau of Labor Statistics
+source_person: null
+source_role: null
+is_named: true
+is_primary: true
+```
+
+```
+claim: "The administration is considering additional sanctions."
+claimer: White House correspondent
+claimer_role: reporter
+claim_type: factual
+evidence_type: attribution
+evidence_subtype: unnamed_secondary
+evidence_quote: "Sources familiar with the deliberations say"
+source_entity: White House
+source_person: null
+source_role: null
+is_named: false
+is_primary: false
+```
+
+---
+
+## Installation
+
+```bash
+pip install sourcerer
+# or
+pip install -e ".[dev]"
+```
+
+Requires `ANTHROPIC_API_KEY` environment variable.
+
+## Usage
+
+### Analyze Transcripts (Batch API - 50% cost savings)
+```bash
+python scripts/analyze_batch.py --input data/samples.json --output data/results.json
+```
+
+### Generate Reports
+```bash
+# HTML report
+python scripts/generate_report.py --format html
+
+# CSV for analysis
+python scripts/generate_report.py --format csv
+
+# All formats
+python scripts/generate_report.py --format all
+```
+
+### Demo on Single Text
+```bash
+python scripts/demo.py "Your news text here..."
+python scripts/demo.py --file transcript.txt
+```
+
+---
+
+## Data
+
+Currently analyzing CNN transcripts from 2024, focusing on substantive political news content (filtering out entertainment, lifestyle, and sports segments).
+
+Sample data structure in `data/samples.json`:
+```json
+{
+  "url": "https://transcripts.cnn.com/...",
+  "network": "CNN",
+  "program": "Amanpour",
+  "date": "January 15, 2024",
+  "subhead": "Interview with...",
+  "text": "..."
+}
+```
+
+---
+
+## Authors
+
+Gaurav Sood
+
+## Background
+
+The argument motivating this package — why checking the provenance of claims
+scales better than checking the claims themselves, and where it stops working —
+is in [`docs/motivation.md`](docs/motivation.md).
+
+The source *typology* half of that argument is built in
+[`covered`](https://github.com/notnews/covered), which works at the level of the
+source rather than the claim.

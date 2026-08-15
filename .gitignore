@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+docs/_build/
+.venv/
+
+# Local agent config — has held API keys in the past, never commit
+.claude/
+
+# Raw transcript corpora: large, access-restricted (Harvard Dataverse), and
+# already stored once in ../covered/data/raw. Never duplicate them here.
+data/*.csv.gz
+data/*.7z

@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sourcerer: Epistemological Analysis Report</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #16a34a;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --gray: #6b7280;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+        h1 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        h2 { color: #374151; margin-top: 2rem; }
+        h3 { color: #4b5563; }
+        h4 { color: #6b7280; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-value { font-size: 2rem; font-weight: bold; color: var(--primary); }
+        .stat-label { color: var(--gray); font-size: 0.9rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin: 1rem 0;
+        }
+        th, td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f3f4f6; font-weight: 600; }
+        tr:hover { background: #f9fafb; }
+        .parent-row { background: #e5e7eb; font-weight: 600; }
+        .parent-row:hover { background: #d1d5db; }
+        .subtype-row td:first-child { padding-left: 2rem; }
+        .claim-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .claim-text { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.75rem; }
+        .claim-meta { color: var(--gray); font-size: 0.9rem; }
+        .evidence-quote {
+            background: #f3f4f6;
+            border-left: 3px solid var(--primary);
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        .evidence-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin: 0.25rem 0.25rem 0.25rem 0;
+        }
+        .ev-official { background: #dbeafe; color: #1e40af; }
+        .ev-expert { background: #dcfce7; color: #166534; }
+        .ev-direct { background: #fef3c7; color: #92400e; }
+        .ev-witness { background: #f3e8ff; color: #6b21a8; }
+        .ev-attribution { background: #fee2e2; color: #991b1b; }
+        .ev-unsupported { background: #f3f4f6; color: #4b5563; }
+        .bar-chart { margin: 1rem 0; }
+        .bar {
+            height: 24px;
+            background: var(--primary);
+            border-radius: 4px;
+            margin: 0.25rem 0;
+            display: flex;
+            align-items: center;
+            padding: 0 0.5rem;
+            color: white;
+            font-size: 0.8rem;
+        }
+        .bar-label { display: flex; justify-content: space-between; font-size: 0.9rem; }
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media (max-width: 768px) { .two-column { grid-template-columns: 1fr; } }
+        .subtype-section { margin-top: 1.5rem; }
+        .subtype-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sourcerer: Epistemological Analysis Report</h1>
+
+    <h2>Summary</h2>
+    <div class="summary-grid">
+        <div class="stat-card">
+            <div class="stat-value">100</div>
+            <div class="stat-label">Articles Analyzed</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">3571</div>
+            <div class="stat-label">Claims Extracted</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">1.19</div>
+            <div class="stat-label">Claims per 100 Words</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">32%</div>
+            <div class="stat-label">Named Source Rate</div>
+        </div>
+    </div>
+
+    <h2>Evidence Type Distribution</h2>
+    <div class="bar-chart">
+        <div class="bar-label"><span>unsupported</span><span>2217 (62.1%)</span></div>
+        <div class="bar ev-unsupported" style="width: 62.083450014001684%">2217</div>
+        <div class="bar-label"><span>official</span><span>444 (12.4%)</span></div>
+        <div class="bar ev-official" style="width: 12.433492019042285%">444</div>
+        <div class="bar-label"><span>witness</span><span>317 (8.9%)</span></div>
+        <div class="bar ev-witness" style="width: 8.877065247829739%">317</div>
+        <div class="bar-label"><span>attribution</span><span>309 (8.7%)</span></div>
+        <div class="bar ev-attribution" style="width: 8.653038364603754%">309</div>
+        <div class="bar-label"><span>expert</span><span>174 (4.9%)</span></div>
+        <div class="bar ev-expert" style="width: 5%">174</div>
+        <div class="bar-label"><span>direct</span><span>110 (3.1%)</span></div>
+        <div class="bar ev-direct" style="width: 5%">110</div>
+    </div>
+
+    <h2>Evidence Subtype Distribution (17 Categories)</h2>
+    <table>
+        <thead><tr><th>Evidence Type / Subtype</th><th>Count</th><th>Percentage</th></tr></thead>
+        <tbody>
+            <tr class="parent-row"><td>OFFICIAL</td><td>444</td><td>12.4%</td></tr>
+            <tr class="subtype-row"><td>government statement</td><td>369</td><td>10.3%</td></tr>
+            <tr class="subtype-row"><td>agency data</td><td>38</td><td>1.1%</td></tr>
+            <tr class="subtype-row"><td>press release</td><td>27</td><td>0.8%</td></tr>
+            <tr class="subtype-row"><td>court documents</td><td>10</td><td>0.3%</td></tr>
+            <tr class="parent-row"><td>EXPERT</td><td>174</td><td>4.9%</td></tr>
+            <tr class="subtype-row"><td>named expert</td><td>158</td><td>4.4%</td></tr>
+            <tr class="subtype-row"><td>unnamed expert</td><td>16</td><td>0.4%</td></tr>
+            <tr class="parent-row"><td>DIRECT</td><td>110</td><td>3.1%</td></tr>
+            <tr class="subtype-row"><td>video audio</td><td>61</td><td>1.7%</td></tr>
+            <tr class="subtype-row"><td>data analysis</td><td>28</td><td>0.8%</td></tr>
+            <tr class="subtype-row"><td>documents records</td><td>21</td><td>0.6%</td></tr>
+            <tr class="parent-row"><td>WITNESS</td><td>317</td><td>8.9%</td></tr>
+            <tr class="subtype-row"><td>reporter observation</td><td>153</td><td>4.3%</td></tr>
+            <tr class="subtype-row"><td>named witness</td><td>153</td><td>4.3%</td></tr>
+            <tr class="subtype-row"><td>unnamed witness</td><td>11</td><td>0.3%</td></tr>
+            <tr class="parent-row"><td>ATTRIBUTION</td><td>309</td><td>8.7%</td></tr>
+            <tr class="subtype-row"><td>named secondary</td><td>163</td><td>4.6%</td></tr>
+            <tr class="subtype-row"><td>unnamed secondary</td><td>141</td><td>3.9%</td></tr>
+            <tr class="subtype-row"><td>anonymous</td><td>5</td><td>0.1%</td></tr>
+            <tr class="parent-row"><td>UNSUPPORTED</td><td>2217</td><td>62.1%</td></tr>
+            <tr class="subtype-row"><td>no attribution</td><td>2135</td><td>59.8%</td></tr>
+            <tr class="subtype-row"><td>vague attribution</td><td>82</td><td>2.3%</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Claim Attribution Analysis</h2>
+    <p>Distinguishing attributed claims (quotes/guests) from news org assertions:</p>
+    <div class="summary-grid">
+        <div class="stat-card">
+            <div class="stat-value">1933</div>
+            <div class="stat-label">Attributed Claims (54%)</div>
+            <div class="claim-meta">Quotes & guests - evidence is who said it</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">1638</div>
+            <div class="stat-label">News Org Assertions (46%)</div>
+            <div class="claim-meta">Anchors & reporters - how do they know?</div>
+        </div>
+    </div>
+
+    <h3>Attributed Claims: Who Is Being Quoted/Interviewed?</h3>
+    <p>Source credentials for claims made by quoted sources and guests:</p>
+    <table>
+        <thead><tr><th>Source Role</th><th>Count</th></tr></thead>
+        <tbody>
+            <tr><td>President of the United States</td><td>27</td></tr>
+            <tr><td>British Prime Minister</td><td>16</td></tr>
+            <tr><td>President</td><td>14</td></tr>
+            <tr><td>Governor</td><td>11</td></tr>
+            <tr><td>Senator</td><td>9</td></tr>
+            <tr><td>Former U.K. Prime Minister</td><td>8</td></tr>
+            <tr><td>CNN Senior Legal Analyst</td><td>8</td></tr>
+            <tr><td>Representative</td><td>7</td></tr>
+            <tr><td>CNN Chief International Anchor</td><td>7</td></tr>
+            <tr><td>Secretary of State</td><td>7</td></tr>
+            <tr><td>CNN Senior Congressional Correspondent</td><td>7</td></tr>
+            <tr><td>officials</td><td>6</td></tr>
+            <tr><td>Congressman</td><td>6</td></tr>
+            <tr><td>U.S. President</td><td>6</td></tr>
+            <tr><td>legal analyst/commentator</td><td>5</td></tr>
+        </tbody>
+    </table>
+
+    <h3>News Org Assertions: How Do They Know?</h3>
+    <p>Evidence supporting claims made directly by anchors and reporters:</p>
+    <div class="bar-chart">
+        <div class="bar-label"><span>unsupported</span><span>1030 (62.9%)</span></div>
+        <div class="bar ev-unsupported" style="width: 62.88156288156288%">1030</div>
+        <div class="bar-label"><span>attribution</span><span>213 (13.0%)</span></div>
+        <div class="bar ev-attribution" style="width: 13.003663003663005%">213</div>
+        <div class="bar-label"><span>official</span><span>177 (10.8%)</span></div>
+        <div class="bar ev-official" style="width: 10.805860805860807%">177</div>
+        <div class="bar-label"><span>witness</span><span>151 (9.2%)</span></div>
+        <div class="bar ev-witness" style="width: 9.21855921855922%">151</div>
+        <div class="bar-label"><span>direct</span><span>50 (3.1%)</span></div>
+        <div class="bar ev-direct" style="width: 5%">50</div>
+        <div class="bar-label"><span>expert</span><span>17 (1.0%)</span></div>
+        <div class="bar ev-expert" style="width: 5%">17</div>
+    </div>
+
+    <h2>Source Entity Analysis</h2>
+    <p>Top cited source entities (organizations, institutions, agencies):</p>
+    <table>
+        <thead><tr><th>Source Entity</th><th>Citations</th></tr></thead>
+        <tbody>
+            <tr><td>CNN</td><td>305</td></tr>
+            <tr><td>White House</td><td>39</td></tr>
+            <tr><td>Detroit News</td><td>15</td></tr>
+            <tr><td>U.S. State Department</td><td>12</td></tr>
+            <tr><td>Israel</td><td>11</td></tr>
+            <tr><td>The Washington Post</td><td>10</td></tr>
+            <tr><td>Police</td><td>9</td></tr>
+            <tr><td>U.S. government</td><td>9</td></tr>
+            <tr><td>U.S. Senate</td><td>9</td></tr>
+            <tr><td>Quinnipiac</td><td>8</td></tr>
+            <tr><td>UK Government</td><td>8</td></tr>
+            <tr><td>Federal Reserve</td><td>6</td></tr>
+            <tr><td>British Prime Minister&#39;s Office</td><td>6</td></tr>
+            <tr><td>U.S.</td><td>6</td></tr>
+            <tr><td>Ukraine</td><td>6</td></tr>
+            <tr><td>Florida Governor&#39;s Office</td><td>6</td></tr>
+            <tr><td>Russian Foreign Ministry</td><td>5</td></tr>
+            <tr><td>prosecutors</td><td>5</td></tr>
+            <tr><td>Bureau of Labor Statistics</td><td>5</td></tr>
+            <tr><td>World Health Organization</td><td>5</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Source Role Distribution</h2>
+    <table>
+        <thead><tr><th>Role</th><th>Count</th></tr></thead>
+        <tbody>
+            <tr><td>CNN HOST</td><td>39 (4.2%)</td></tr>
+            <tr><td>CNN Anchor</td><td>36 (3.8%)</td></tr>
+            <tr><td>President of the United States</td><td>30 (3.2%)</td></tr>
+            <tr><td>officials</td><td>21 (2.2%)</td></tr>
+            <tr><td>British Prime Minister</td><td>18 (1.9%)</td></tr>
+            <tr><td>reporter</td><td>17 (1.8%)</td></tr>
+            <tr><td>President</td><td>16 (1.7%)</td></tr>
+            <tr><td>CNN Host</td><td>16 (1.7%)</td></tr>
+            <tr><td>news organization</td><td>15 (1.6%)</td></tr>
+            <tr><td>CNN correspondent</td><td>13 (1.4%)</td></tr>
+            <tr><td>Governor</td><td>12 (1.3%)</td></tr>
+            <tr><td>CNN National Correspondent</td><td>11 (1.2%)</td></tr>
+            <tr><td>Senator</td><td>10 (1.1%)</td></tr>
+            <tr><td>U.S. official</td><td>8 (0.9%)</td></tr>
+            <tr><td>CNN anchor</td><td>8 (0.9%)</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Claim Type Distribution</h2>
+    <table>
+        <thead><tr><th>Claim Type</th><th>Count</th><th>Percentage</th></tr></thead>
+        <tbody>
+            <tr><td>factual</td><td>2196</td><td>61.5%</td></tr>
+            <tr><td>evaluative</td><td>573</td><td>16.0%</td></tr>
+            <tr><td>predictive</td><td>403</td><td>11.3%</td></tr>
+            <tr><td>attributive</td><td>279</td><td>7.8%</td></tr>
+            <tr><td>causal</td><td>120</td><td>3.4%</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Sample Claims with Evidence</h2>
+    <p>Showing up to 30 claims (10 articles × 3 claims each):</p>
+    <h3>Don Lemon Tonight (2022-08-22)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. I&#39;ll be back tomorrow night.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Laura Coates (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> predictive
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/reporter_observation</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"I&#39;ll be back tomorrow night."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. I was in Puerto Rico.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Laura Coates (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            
+        </div>
+        <div class="evidence-quote">"I was in Puerto Rico."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. I was out of the country.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Don Lemon (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            
+        </div>
+        <div class="evidence-quote">"I was, this is what I was out of the country."</div>
+    </div>
+    <h3>New Day (2022-03-17)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Olga Smirnova, one of Russia&#39;s star Bolshoi ballerinas, has left the prestigious troupe after publicly denouncing the war.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Brianna Keilar (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-unsupported">unsupported/no_attribution</span>
+            
+        </div>
+        <div class="evidence-quote">"Olga Smirnova, one of Russia&#39;s star Bolshoi ballerinas, has left the prestigious troupe after publicly denouncing the war. She has now joined the Dutch National Ballet and is set to start with them here in the coming days."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. She has now joined the Dutch National Ballet and is set to start with them here in the coming days.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Brianna Keilar (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-unsupported">unsupported/no_attribution</span>
+            
+        </div>
+        <div class="evidence-quote">"She has now joined the Dutch National Ballet and is set to start with them here in the coming days."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Olga contacted me through a friend who asked if I would be interested in speaking to Olga about a possible move.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Ted Brandsen (guest) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            <span class="claim-meta">Source: Dutch National Ballet</span>
+        </div>
+        <div class="evidence-quote">"Well, Olga contacted me -- she contacted a friend, first, who asked me if I would be interested in speaking to Olga about a possible move."</div>
+    </div>
+    <h3>Erin Burnett Outfront (2023-04-25)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Russia is seizing on Tucker Carlson&#39;s exit from Fox.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Erin Burnett (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: Russian Foreign Ministry</span>
+        </div>
+        <div class="evidence-quote">"SERGEY LAVROV, RUSSIAN FOREIGN MINISTER (through translator): Perhaps it would be useful to consider how things are with freedom of speech in the United States. I&#39;ve heard that Tucker Carlson has left Fox News. It&#39;s curious news. What is this related to? One can only guess. But, clearly, the wealth ..."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. A top Putin official tells our Matthew Chance about the possibility of a prisoner swap for Americans detained in Russia.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Erin Burnett (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-attribution">attribution/named_secondary</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"A top Putin official tells our Matthew Chance about the possibility of a prisoner swap for Americans detained in Russia."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Biden&#39;s message today for re-election is eerily similar to what he said on this very day exactly four years ago.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Erin Burnett (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> evaluative
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-unsupported">unsupported/no_attribution</span>
+            
+        </div>
+        <div class="evidence-quote">"Biden&#39;s message today for re-election is eerily similar to what he said on this very day exactly four years ago."</div>
+    </div>
+    <h3>CNN Newsroom (2023-03-16)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Seven Virginia deputies will be shown a disturbing 12-minute long video of a violent encounter with 28-year-old Irvo Otieno.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jim Sciutto (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-attribution">attribution/unnamed_secondary</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"This morning, the disturbing 12-minute long video of a violent encounter between 7 Virginia deputies and 28-year- old Irvo Otieno will be shown to the Otieno family now."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. The officers are now facing second degree murder charges after Otieno died in their custody while at a mental health facility.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Erica Hill (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-attribution">attribution/unnamed_secondary</span>
+            
+        </div>
+        <div class="evidence-quote">"Those officers are now facing second degree murder charges after Otieno died in their custody while at a mental health facility."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Prosecutors claim the video shows officers smothering him.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Erica Hill (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> attributive
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: prosecutors</span>
+        </div>
+        <div class="evidence-quote">"Now prosecutors claim the video shows officers smothering him."</div>
+    </div>
+    <h3>Quest Means Business (2022-10-12)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. The markets are flat and bouncing around 60 up and are in the green.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Richard Quest (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/reporter_observation</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"They&#39;re flat. Not surprisingly. I say flat. I mean, you see, we&#39;re bouncing around 60 up and a bit over the shop, but are in the green, which is still the good."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. The US President says he doesn&#39;t believe the country is headed for a recession.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Richard Quest (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> attributive
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: US President</span>
+        </div>
+        <div class="evidence-quote">"The US President says he doesn&#39;t believe the country is headed for a recession."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. We got the forecast wrong, I got the forecast wrong.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Richard Clarida (guest) &nbsp;|&nbsp;
+            <strong>Type:</strong> evaluative
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-direct">direct/video_audio</span>
+            <span class="claim-meta">Source: Federal Reserve</span>
+        </div>
+        <div class="evidence-quote">"RICHARD CLARIDA, FORMER VICE CHAIRMAN, FEDERAL RESERVE: We got the forecast wrong. I got the forecast wrong."</div>
+    </div>
+    <h3>CNN Newsroom (2022-08-05)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. New jobs numbers for the month of July show 528,000 jobs added last month.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jim Sciutto (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/agency_data</span>
+            <span class="claim-meta">Source: Bureau of Labor Statistics</span>
+        </div>
+        <div class="evidence-quote">"Just in to CNN, new jobs numbers for the month of July show 528,000 jobs added last month"</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. The July jobs number is double expectations.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jim Sciutto (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-expert">expert/unnamed_expert</span>
+            
+        </div>
+        <div class="evidence-quote">"This is twice as much as the consensus from economists."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. The unemployment rate lowered to just 3.5 percent.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jim Sciutto (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/agency_data</span>
+            <span class="claim-meta">Source: U.S. Bureau of Labor Statistics</span>
+        </div>
+        <div class="evidence-quote">"Just in to CNN, new jobs numbers for the month of July show 528,000 jobs added last month, that number double expectations. It lowers the unemployment rate to just 3.5 percent."</div>
+    </div>
+    <h3>CNN This Morning (2024-10-11)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Donald Trump does not care that a mob might attack his own vice president.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Barack Obama (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> evaluative
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-attribution">attribution/named_secondary</span>
+            
+        </div>
+        <div class="evidence-quote">"BARACK OBAMA, (D) FORMER U.S. PRESIDENT: Donald Trump does not care that a mob might attack his own vice president."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. Pennsylvania does not need four more years of that.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Barack Obama (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> evaluative
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            
+        </div>
+        <div class="evidence-quote">"BARACK OBAMA, (D) FORMER U.S. PRESIDENT: Donald Trump does not care that a mob might attack his own vice president. Do you think he cares about you? Pennsylvania, we do not need four more years of that."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Former President Obama&#39;s first rally for Kamala Harris yesterday took part in Pennsylvania.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Manu Raju (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-unsupported">unsupported/no_attribution</span>
+            
+        </div>
+        <div class="evidence-quote">"It was no coincidence that former President Obama&#39;s first rally for Kamala Harris yesterday took part in Pennsylvania."</div>
+    </div>
+    <h3>New Day (2022-07-07)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. It is clearly now the will of the Parliamentary Conservative Party that there should be a new leader of that party and therefore, a new prime minister.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Boris Johnson (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: UK Government</span>
+        </div>
+        <div class="evidence-quote">"It is clearly now the will of the Parliamentary Conservative Party that there should be a new leader of that party and therefore, a new prime minister."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. I have agreed with Sir Graham Brady, the chairman of our backbench MPs, that the process of choosing that new leader should begin now and the timetable will be announced next week.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Boris Johnson (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: British Prime Minister&#39;s Office</span>
+        </div>
+        <div class="evidence-quote">"And I have agreed with Sir Graham Brady, the chairman of our backbench MPs, that the process of choosing that new leader should begin now and the timetable will be announced next week."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. I&#39;ve appointed a cabinet to serve, as I will until a new leader is in place.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Boris Johnson (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-official">official/government_statement</span>
+            <span class="claim-meta">Source: British Prime Minister&#39;s Office</span>
+        </div>
+        <div class="evidence-quote">"And I&#39;ve -- today, I&#39;ve appointed a cabinet to serve, as I will until a new leader is in place."</div>
+    </div>
+    <h3>CNN Live Event/Special (2024-12-31)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Boris Sanchez feels pretty good because a vaping doctor hooked him up with prescriptions.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Boris Sanchez (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> causal
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"BORIS SANCHEZ, CNN HOST: Again, shout out to that vaping doctor that hooked me up with all these prescriptions, because I feel pretty good."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. Boris Sanchez thinks his performance went pretty well.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Boris Sanchez (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> evaluative
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/reporter_observation</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"I think it went pretty well, I&#39;ve got to say."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Shania Twain is performing at her Come On Over Vegas residency.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Shania Twain (quoted_source) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/named_witness</span>
+            
+        </div>
+        <div class="evidence-quote">"Hi, Anderson and Andy, It&#39;s Shania Twain from my come on over Vegas residency wishing you a Happy New Year, let&#39;s go boys."</div>
+    </div>
+    <h3>The Lead with Jake Tapper (2024-03-11)</h3>
+    <div class="claim-card">
+        <div class="claim-text">1. Brian Butler has worked at Mar-a-Lago for 20 years.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jake Tapper (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-attribution">attribution/named_secondary</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"He has worked at Mar-a-Lago for 20 years."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">2. Brian Butler handled the car service at Trump&#39;s Florida resort.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jake Tapper (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/reporter_observation</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"He handled the car service at Trump&#39;s Florida resort."</div>
+    </div>
+    <div class="claim-card">
+        <div class="claim-text">3. Brian Butler often directly made sure that Donald Trump and all of his belongings were moved from place to place.</div>
+        <div class="claim-meta">
+            <strong>Claimer:</strong> Jake Tapper (anchor) &nbsp;|&nbsp;
+            <strong>Type:</strong> factual
+        </div>
+        <div style="margin-top: 0.5rem;">
+            <span class="evidence-badge ev-witness">witness/reporter_observation</span>
+            <span class="claim-meta">Source: CNN</span>
+        </div>
+        <div class="evidence-quote">"Often directly making sure that Donald Trump and all of his belongings were moved from place to place."</div>
+    </div>
+
+    <h2>Evidence by Subtype: Examples</h2>
+    <p>Example claims for each evidence subtype to illustrate the classification taxonomy:</p>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-official">OFFICIAL</span></h3>
+    <h4>Government Statement</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">It&#39;s how they write their memoirs.</div>
+        <div class="evidence-quote">"REP. MIKE TURNER (R-OH): Well, it&#39;s, I don&#39;t know. I mean, you have to ask him, but certainly we all know that every former president has access to their document. It&#39;s how they write their memoirs."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: U.S. House of Representatives</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Russia is seizing on Tucker Carlson&#39;s exit from Fox.</div>
+        <div class="evidence-quote">"SERGEY LAVROV, RUSSIAN FOREIGN MINISTER (through translator): Perhaps it would be useful to consider how things are with freedom of speech in the United States. I&#39;ve heard that Tucker Carlson has left Fox News. It&#39;s curious news. What is this related..."</div>
+        <div class="claim-meta">Erin Burnett Outfront | Source: Russian Foreign Ministry</div>
+    </div>
+    <h4>Agency Data</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Wholesale prices are rising 4.4 percent in September, double what economists had predicted.</div>
+        <div class="evidence-quote">"Wholesale prices are rising 4.4 percent in September, double the predictions, sorry of 0.4 percent, double what economists had predicted."</div>
+        <div class="claim-meta">Quest Means Business</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">New jobs numbers for the month of July show 528,000 jobs added last month.</div>
+        <div class="evidence-quote">"Just in to CNN, new jobs numbers for the month of July show 528,000 jobs added last month"</div>
+        <div class="claim-meta">CNN Newsroom | Source: Bureau of Labor Statistics</div>
+    </div>
+    <h4>Court Documents</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">He&#39;s already been there. He&#39;s done it. And he&#39;s lost in front of the Supreme Court, eight to one on that issue.</div>
+        <div class="evidence-quote">"He&#39;s already been there. He&#39;s done it. And he&#39;s lost in front of the Supreme Court, eight to one on that issue."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: Supreme Court</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">There is no executive privilege that belongs to him.</div>
+        <div class="evidence-quote">"And he&#39;s lost in front of the Supreme Court, eight to one on that issue."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: Supreme Court</div>
+    </div>
+    <h4>Press Release</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">The former president&#39;s legal team also confirming that he tried to pass a message to the attorney general a few days later, warning people across the ...</div>
+        <div class="evidence-quote">"The former president&#39;s legal team also confirming that he tried to pass a message to the attorney general a few days later"</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: Trump legal team</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Netflix is bringing back Volodymyr Zelenskyy&#39;s comedy series &#39;Servant of the People&#39;.</div>
+        <div class="evidence-quote">"Netflix is bringing back Volodymyr Zelenskyy&#39;s comedy series, announcing in a tweet &quot;You asked and it&#39;s back! Servant of the People is once again available on Netflix in the U.S.&quot;"</div>
+        <div class="claim-meta">New Day | Source: Netflix</div>
+    </div>
+    </div>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-expert">EXPERT</span></h3>
+    <h4>Named Expert</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I think it&#39;s all part of this espionage investigation.</div>
+        <div class="evidence-quote">"NICK AKERMAN, FORMER ASSISTANT SPECIAL WATERGATE PROSECUTOR: Well, I think it&#39;s all part of this espionage investigation."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">There also certainly were people that basically snitched on Trump.</div>
+        <div class="evidence-quote">"There also certainly were people that basically snitched on Trump."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <h4>Unnamed Expert</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">It belongs to the executive, the current executive.</div>
+        <div class="evidence-quote">"There is no executive privilege that belongs to him. It belongs to the executive, the current executive."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">The July jobs number is double expectations.</div>
+        <div class="evidence-quote">"This is twice as much as the consensus from economists."</div>
+        <div class="claim-meta">CNN Newsroom</div>
+    </div>
+    </div>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-direct">DIRECT</span></h3>
+    <h4>Documents Records</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Trump&#39;s legal team calling for a special master to go through document seized from Mar-a-Lago to decide whether any should be returned, claiming in co...</div>
+        <div class="evidence-quote">"Trump&#39;s legal team calling for a special master to go through document seized from Mar-a-Lago to decide whether any should be returned, claiming in court documents that with Trump currently the 2024 Republican front runner, this is all about politics..."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: Trump&#39;s legal team</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I am against war with all the fibers of my soul.</div>
+        <div class="evidence-quote">"She says, &quot;I have to be honest and say that I am against war with all the fibers of my soul.&quot;"</div>
+        <div class="claim-meta">New Day</div>
+    </div>
+    <h4>Video Audio</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I decided to participate.</div>
+        <div class="evidence-quote">"UNIDENTIFIED MALE (through translator): I decided to participate."</div>
+        <div class="claim-meta">Erin Burnett Outfront</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Our very democracy, everything that has made America America is at stake.</div>
+        <div class="evidence-quote">"Our very democracy, everything that has made America America is at stake."</div>
+        <div class="claim-meta">Erin Burnett Outfront</div>
+    </div>
+    <h4>Data Analysis</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">It doubled in size between December and January based on the satellite imagery.</div>
+        <div class="evidence-quote">"It doubled in size between December and January based on the satellite imagery."</div>
+        <div class="claim-meta">CNN Newsroom</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">The labor market has now fully recovered all of the jobs lost during COVID.</div>
+        <div class="evidence-quote">"Total nonfarm payroll is back to February 2020 levels."</div>
+        <div class="claim-meta">CNN Newsroom</div>
+    </div>
+    </div>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-witness">WITNESS</span></h3>
+    <h4>Named Witness</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I was in Puerto Rico.</div>
+        <div class="evidence-quote">"I was in Puerto Rico."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I was out of the country.</div>
+        <div class="evidence-quote">"I was, this is what I was out of the country."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <h4>Unnamed Witness</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">She regrets the decision that she made to vote for Donald Trump in 2016 and feels ashamed for it.</div>
+        <div class="evidence-quote">"UNIDENTIFIED FEMALE: I regret the decision that I made to vote for Donald Trump in 2016, and I do feel ashamed for it."</div>
+        <div class="claim-meta">CNN This Morning</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Probably half of the people I have talked to say their own homes were either damaged or completely destroyed.</div>
+        <div class="evidence-quote">"I have interviewed dozens of civilians who have evacuated from Mariupol in the last couple of weeks. All of them describe enduring days and nights of near constant Russian artillery bombardment and almost hourly airstrikes from Russian warplanes. Pro..."</div>
+        <div class="claim-meta">CNN Newsroom</div>
+    </div>
+    <h4>Reporter Observation</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">I&#39;ll be back tomorrow night.</div>
+        <div class="evidence-quote">"I&#39;ll be back tomorrow night."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: CNN</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">The most senior Russian official to visit the United States since Putin invaded Ukraine today said this.</div>
+        <div class="evidence-quote">"The most senior Russian official to visit the United States since Putin invaded Ukraine -- you heard me there -- today, said this, unprompted."</div>
+        <div class="claim-meta">Erin Burnett Outfront | Source: CNN/OUTFRONT</div>
+    </div>
+    </div>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-attribution">ATTRIBUTION</span></h3>
+    <h4>Named Secondary</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Sources are telling the New York Times that investigators are seeking additional surveillance footage from Mar-a-Lago as they investigate how classifi...</div>
+        <div class="evidence-quote">"Sources are telling the New York Times that investigators are seeking additional surveillance footage from Mar-a-Lago as they investigate how classified documents were handled by the former president and his staff."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: New York Times</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">They were the ones that moved the documents to Mar-a-Lago.</div>
+        <div class="evidence-quote">"KASH PATEL, FORMER DEPARTMENT OF DEFENSE CHIEF OF STAFF: But the Government Services Administration is responsible for packaging and parceling those documents. And you bring up a great point. They were the ones that moved the documents to Mar-a-Lago."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <h4>Unnamed Secondary</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">This former president has managed to launch not one, but two Justice Department investigations that involve the National Archives.</div>
+        <div class="evidence-quote">"Sources are telling CNN that the Justice Department is issuing a new grand jury subpoena to the National Archives for more documents as part of the January 6th investigation."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: CNN</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">The DOJ is broadening its investigation into the potential role that then White House staff may have played in the lead up to the attack on the capito...</div>
+        <div class="evidence-quote">"Sources are telling CNN that the Justice Department is issuing a new grand jury subpoena to the National Archives for more documents as part of the January 6th investigation. Now let&#39;s pause there. OK. To give you some perspective, because that&#39;s als..."</div>
+        <div class="claim-meta">Don Lemon Tonight | Source: CNN</div>
+    </div>
+    <h4>Anonymous</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Sources are telling CNN that the Justice Department is issuing a new grand jury subpoena to the National Archives for more documents as part of the Ja...</div>
+        <div class="evidence-quote">"Sources are telling CNN that the Justice Department is issuing a new grand jury subpoena to the National Archives for more documents as part of the January 6th investigation."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Then the Justice Department enters the scene they convene a grand jury, subpoenas are issued.</div>
+        <div class="evidence-quote">"Sources are telling CNN that the Justice Department is issuing a new grand jury subpoena to the National Archives for more documents as part of the January 6th investigation."</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    </div>
+    <div class="subtype-section">
+    <h3 style="margin-bottom: 0.5rem;"><span class="evidence-badge ev-unsupported">UNSUPPORTED</span></h3>
+    <h4>No Attribution</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Some footage reportedly showing people moving boxes in and out, and in some cases, appearing to change the container some documents were held in.</div>
+        <div class="evidence-quote">""</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">A Trump legal team is asking for a special master, a third-party attorney to go through Mar-a-Lago evidence and determine if there are private documen...</div>
+        <div class="evidence-quote">""</div>
+        <div class="claim-meta">Don Lemon Tonight</div>
+    </div>
+    <h4>Vague Attribution</h4>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">Patriot air defense batteries are now in Eastern Europe and more are expected to be put there.</div>
+        <div class="evidence-quote">"We know that Patriot air defense batteries are now in Eastern Europe and more are expected to be put there."</div>
+        <div class="claim-meta">New Day</div>
+    </div>
+    <div class="claim-card" style="margin: 0.5rem 0; padding: 1rem;">
+        <div class="claim-text" style="font-size: 0.95rem;">President Biden is officially running for re-election.</div>
+        <div class="evidence-quote">"President Biden is officially running for re-election, asking voters to let him finish the job, as he puts it."</div>
+        <div class="claim-meta">Erin Burnett Outfront</div>
+    </div>
+    </div>
+
+</body>
+</html>

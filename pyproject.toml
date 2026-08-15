@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sourcerer"
+version = "0.1.0"
+description = "Analyze epistemological support for claims in news articles"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Gaurav Sood"},
+]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Text Processing :: Linguistic",
+]
+keywords = ["nlp", "journalism", "fact-checking", "claims", "epistemology", "news analysis"]
+dependencies = [
+    "anthropic>=0.18.0",
+    "pandas>=2.0.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.4.0",
+    "vulture>=2.10",
+    "pydoclint>=0.4.0",
+]
+docs = [
+    "sphinx>=7.0.0",
+    "furo>=2024.0.0",
+    "sphinx-autodoc-typehints>=2.0.0",
+    "myst-parser>=3.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/notnews/sourcerer"
+Repository = "https://github.com/notnews/sourcerer"
+Documentation = "https://notnews.github.io/sourcerer"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E402"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sourcerer"]
+
+[tool.vulture]
+min_confidence = 80
+paths = ["sourcerer"]
+exclude = ["tests/"]
+
+[tool.pydoclint]
+style = "google"
+check-return-types = true
+check-yield-types = true
+arg-type-hints-in-docstring = false
+
