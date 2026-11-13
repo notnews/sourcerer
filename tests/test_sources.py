@@ -1,6 +1,6 @@
 """The claim-to-source bridge: name resolution and the two typing routes.
 
-These tests pin the behaviours that the 100-article pilot showed to matter, in
+These tests pin the behaviors that the 100-article pilot showed to matter, in
 particular surname aliasing and the guard against it. Both are easy to break
 in a way that raises no error and silently changes the reported match rate.
 """
@@ -62,9 +62,7 @@ def test_a_different_first_name_blocks_a_surname_match() -> None:
 
 
 def test_an_ambiguous_surname_does_not_resolve() -> None:
-    text = (
-        "JOHN SMITH, CNN CORRESPONDENT: One.\n\nJANE SMITH, ANALYST: Two.\n"
-    )
+    text = "JOHN SMITH, CNN CORRESPONDENT: One.\n\nJANE SMITH, ANALYST: Two.\n"
     assert SpeakerIndex.from_transcript(text).resolve("Adam Smith").name is None
 
 
@@ -113,7 +111,7 @@ def test_a_networks_own_analyst_is_typed_as_media() -> None:
 
 
 def test_an_outlet_word_alone_does_not_make_someone_media() -> None:
-    """"TIME" and "VOX" are outlets and also ordinary words.
+    """ "TIME" and "VOX" are outlets and also ordinary words.
 
     Requiring a newsroom job word alongside the outlet is what stops a role
     clause from being read as media just because it contains one.
