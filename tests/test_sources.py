@@ -1,6 +1,6 @@
 """The claim-to-source bridge: name resolution and the two typing routes.
 
-These tests pin the behaviours that the 100-article pilot showed to matter, in
+These tests pin the behaviors that the 100-article pilot showed to matter, in
 particular surname aliasing and the guard against it. Both are easy to break
 in a way that raises no error and silently changes the reported match rate.
 """

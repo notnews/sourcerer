@@ -2,7 +2,7 @@
 
 sourcerer and covered answer different questions about the same transcripts.
 covered asks who is given a microphone; sourcerer asks how well supported each
-claim is. The split of labour here follows from that: the LLM decides what is a
+claim is. The split of labor here follows from that: the LLM decides what is a
 claim and whether it is supported -- the part only a language model can do --
 and ``covered.taxonomy.classify`` decides what kind of source the claimer is,
 deterministically and auditably, with no API key involved.
@@ -45,7 +45,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from covered.taxonomy import SourceLabel
 
-# Staff of the news organisation. Their sector is not a finding, it is what they
+# Staff of the news organization. Their sector is not a finding, it is what they
 # are: an anchor speaking is CNN speaking. Sending them through the taxonomy
 # invites a wrong answer for no gain -- covered's lexicon has CORRESPONDENT but
 # deliberately not ANCHOR or HOST, because covered excludes staff from the
@@ -74,7 +74,7 @@ def _covered():
     return entities, speakers, taxonomy
 
 
-# Job words that make someone a paid voice of a news organisation rather than an
+# Job words that make someone a paid voice of a news organization rather than an
 # independent source. Requiring one of these alongside an outlet name keeps
 # "TIME" or "VOX" from matching a role clause that merely contains the word.
 _MEDIA_JOBS = frozenset(
@@ -131,7 +131,7 @@ def _is_network_staff(role_clean: str) -> bool:
             ANALYST``.
 
     Returns:
-        True when the clause identifies a paid voice of a news organisation.
+        True when the clause identifies a paid voice of a news organization.
     """
     low = role_clean.lower()
 
@@ -146,7 +146,7 @@ class Resolution:
     """Outcome of matching one claimer string to a speaker in one transcript.
 
     Attributes:
-        name: Normalised speaker name that was matched, or ``None`` if unmatched.
+        name: Normalized speaker name that was matched, or ``None`` if unmatched.
         role_raw: Role clause from that speaker's introduction turn. Empty when
             the speaker was matched but never introduced with a role.
         route: How the match was made -- ``"exact"``, ``"surname"``, or
@@ -163,14 +163,14 @@ class SpeakerIndex:
     """Speakers of one transcript, queryable by the name a model reports.
 
     Attributes:
-        roles: Normalised speaker name to the role clause first seen for them.
+        roles: Normalized speaker name to the role clause first seen for them.
     """
 
     def __init__(self, roles: dict[str, str]) -> None:
         """Build an index over already-normalised speaker names.
 
         Args:
-            roles: Normalised speaker name to role clause (empty when unknown).
+            roles: Normalized speaker name to role clause (empty when unknown).
         """
         self.roles = roles
         self._by_surname: dict[str, set[str]] = defaultdict(set)
@@ -182,7 +182,7 @@ class SpeakerIndex:
         """Parse ``text`` into speaker turns and index them.
 
         Args:
-            text: Full transcript text of a single programme.
+            text: Full transcript text of a single program.
 
         Returns:
             An index over every speaker that appears in the transcript.
@@ -192,7 +192,7 @@ class SpeakerIndex:
         for turn in speakers.parse_turns(text):
             # parse_turns already folds surname-only turns onto the introduced
             # speaker, but its name_norm keeps the honorific ("rep. ruben
-            # gallego") while a model reports the bare name. Normalising again
+            # gallego") while a model reports the bare name. Normalizing again
             # strips the title and makes the two sides comparable; skipping this
             # step is what held the guest match rate down to 81.5%.
             name = entities.normalize_name(turn.name_norm or turn.speaker_raw or "")
@@ -382,7 +382,7 @@ def describe_source(
 
     Returns:
         The label with ``entity_form``, ``gender`` and their provenance set.
-        Anything not established stays ``unknown``: an organisation has no
+        Anything not established stays ``unknown``: an organization has no
         gender to read, and neither does "officials".
     """
     from covered import persons, wikidata
